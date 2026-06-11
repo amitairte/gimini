@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eevvan's Mega Academy - English & Math 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght=500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-pink: #ffb6c1; 
+            --top-blue: #2f70e9;   
+            --card-purple: #5c53e0; 
+            --btn-blue: #2563eb;
+            --btn-green: #22c55e;
+            --btn-red: #ef4444;
+            --header-pink: #db2777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            user-select: none;
+        }
+
+        /* Top Global Hub Navbar */
+        .global-navbar {
+            width: 100%;
+            background-color: #1e293b;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        .global-brand {
+            color: white;
+            font-size: 22px;
+            font-family: 'Fredoka One', cursive;
+        }
+        .hub-selectors {
+            display: flex;
+            gap: 12px;
+        }
+        .hub-btn {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .hub-btn.active-hub {
+            background: #38bdf8;
+            color: #0f172a;
+            box-shadow: 0 0 15px #38bdf8;
+        }
+
+        /* Dashboard Container Systems */
+        .academy-section {
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .academy-section.active-section {
+            display: flex;
+        }
+
+        /* ENGLISH ACADEMY STYLES */
+        .eng-header {
+            width: 100%; background: var(--header-pink); color: white; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .eng-header h1 { font-size: 24px; font-family: 'Fredoka One', cursive; }
+        .sound-btn { background: #9d174d; color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-family: 'Quicksand', sans-serif;}
+
+        .mode-nav { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; justify-content: center; }
+        .mode-btn { background: white; border: 3px solid var(--header-pink); padding: 12px 25px; font-size: 18px; font-weight: bold; border-radius: 18px; cursor: pointer; color: var(--header-pink); transition: 0.2s; font-family: 'Quicksand', sans-serif; }
+        .mode-btn.active { background: var(--header-pink); color: white; }
+
+        .eng-container { width: 95%; max-width: 1100px; display: none; }
+        .eng-container.active { display: flex; flex-direction: column; align-items: center; }
+
+        .spelling-box { width: 100%; background: white; border-radius: 24px; padding: 30px; border: 8px solid #fbcfe8; box-shadow: 0 15px 35px rgba(0,0,0,0.15); text-align: center; }
+        
+        /* Two-column split layout for Essay Game */
+        .essay-split-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; width: 100%; text-align: left; }
+        .essay-lines-panel { background: #f8fafc; border: 3px solid #cbd5e1; border-radius: 16px; padding: 15px; }
+        .essay-lines-panel h3 { color: #1e293b; font-size: 16px; margin-bottom: 12px; border-bottom: 2px dashed #cbd5e1; padding-bottom: 6px; }
+        .essay-line-item { font-size: 14px; font-weight: bold; padding: 8px; margin-bottom: 6px; border-radius: 8px; background: white; border: 1px solid #e2e8f0; color: #475569; }
+        .essay-line-item.current-line { background: #fef08a; border-color: #facc15; color: #854d0e; }
+
+        /* Hiding actual words to prevent direct copy-pasting */
+        .hidden-text-mask { filter: blur(4px); background: #e2e8f0; color: transparent; user-select: none; border-radius: 4px; display: inline-block; padding: 0 10px; }
+
+        /* Hint Box Style */
+        .hindi-hint-box { background: #eff6ff; border: 2px dashed #3b82f6; border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 15px; font-weight: bold; color: #1e40af; display: none; }
+        .hint-toggle-btn { background: #3b82f6; color: white; border: none; padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px; font-family: 'Quicksand', sans-serif; }
+
+        .pic-holder-emoji { 
+            width: 100%; max-width: 280px; height: 160px; margin: 0 auto 15px auto; 
+            background: #f0fdf4; border-radius: 20px; border: 4px solid #10b981; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 90px; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .input-area { display: flex; justify-content: center; gap: 12px; margin: 25px 0; }
+        .word-input { width: 100%; max-width: 650px; font-size: 22px; font-weight: bold; text-align: center; padding: 12px; border: 4px solid #cbd5e1; border-radius: 16px; outline: none; background: #fffbfa; color: #1e293b; font-family: 'Quicksand', sans-serif; }
+        .word-input.correct { border-color: #2ecc71; background: #e8f8f5; color: #27ae60; }
+        .word-input.wrong { border-color: #e74c3c; background: #fce4d6; color: #c0392b; }
+        .check-btn { background: #10b981; color: white; font-size: 22px; font-weight: bold; padding: 0 35px; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 5px 0 #047857; font-family: 'Quicksand', sans-serif; }
+        .check-btn:active { transform: translateY(4px); box-shadow: none; }
+
+        .listen-again-btn { background: #ca8a04; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: inline-flex; align-items: center; gap: 6px; font-family: 'Quicksand', sans-serif; box-shadow: 0 4px 0 #a16207; }
+        .listen-again-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #a16207; }
+
+        /* JUMBLE WORD BUTTONS AREA */
+        .jumble-btn-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; min-height: 50px; }
+        .jumble-word-btn { background: #3b82f6; color: white; border: none; padding: 10px 18px; font-size: 18px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 0 #2563eb; font-family: 'Quicksand', sans-serif; }
+        .jumble-word-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #2563eb; }
+
+        /* BOOK STORY MODE LAYOUT */
+        .book-layout { display: flex; width: 100%; gap: 20px; background: white; border-radius: 24px; padding: 20px; border: 8px solid #cbd5e1; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .story-sidebar { width: 250px; display: flex; flex-direction: column; gap: 8px; border-right: 2px dashed #cbd5e1; padding-right: 15px; }
+        .story-tab-btn { background: #f1f5f9; border: 2px solid #e2e8f0; padding: 10px; text-align: left; font-weight: bold; border-radius: 10px; cursor: pointer; font-family: 'Quicksand', sans-serif; font-size: 14px; }
+        .story-tab-btn.active-story { background: #db2777; color: white; border-color: #db2777; }
+        .reading-page { flex: 1; padding-left: 15px; text-align: left; }
+        .book-content { font-size: 18px; line-height: 1.8; color: #334155; font-weight: 500; white-space: pre-line; }
+
+        /* SKY TYPING WITH LEVEL TABS & KEYBOARD */
+        .typing-box { width: 100%; background: #fff; border-radius: 24px; padding: 20px; border: 8px solid #fbcfe8; box-shadow: 0 15px 35px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
+        #gameArea { width: 100%; height: 380px; background: linear-gradient(to bottom, #60a5fa 0%, #bae6fd 100%); position: relative; overflow: hidden; border-radius: 16px; border: 4px solid #2563eb; margin-bottom: 15px; }
+        .score-box { background: #22c55e; color: white; padding: 5px 20px; border-radius: 12px; font-size: 22px; font-weight: bold; display: inline-block; }
+        .controls-row-typing { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
+        
+        .typing-levels { display: flex; gap: 8px; }
+        .typing-level-btn { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 10px; cursor: pointer; font-family: 'Quicksand', sans-serif; }
+        .typing-level-btn.active-level { background: var(--header-pink); color: white; border-color: var(--header-pink); }
+
+        .falling-balloon {
+            position: absolute;
+            font-size: 28px;
+            font-weight: bold;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 50%;
+            border: 3px solid #ef4444;
+            color: #1e293b;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            font-family: 'Fredoka One', cursive;
+            user-select: none;
+            transition: background 0.1s;
+        }
+
+        /* MATH QUIZ 4-COLUMN LAYOUT */
+        .math-navbar { width: 100%; background-color: var(--top-blue); color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; font-weight: bold; }
+        .math-navbar-brand { font-size: 20px; font-family: 'Fredoka One', cursive; }
+        .audio-btn { background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; font-family: 'Quicksand', sans-serif; }
+
+        .control-panel { margin-top: 15px; display: flex; gap: 15px; justify-content: center; }
+        .toggle-view-btn { background: white; border: 2px solid var(--card-purple); color: var(--card-purple); padding: 8px 18px; border-radius: 30px; cursor: pointer; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .game-wrapper-4col { 
+            display: grid;
+            grid-template-columns: 260px 420px 260px 240px;
+            gap: 20px;
+            width: 98%;
+            max-width: 1280px;
+            margin: 20px auto;
+            align-items: start;
+            padding-bottom: 60px;
+        }
+
+        .side-card { 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            padding: 20px; 
+            border: 3px solid #e2e8f0; 
+            position: relative;
+        }
+        .card-close-btn {
+            position: absolute; top: 12px; right: 12px; background: #fee2e2; color: #ef4444; border: none; border-radius: 50%; width: 22px; height: 22px; font-weight: bold; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
+        }
+        .card-header-title { font-family: 'Fredoka One', cursive; color: var(--card-purple); font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; border-bottom: 2px dashed #f1f5f9; padding-bottom: 8px;}
+        .card-content-text { font-size: 14px; color: #475569; line-height: 1.6; font-weight: 700; }
+        .rule-subheading { color: #2563eb; font-weight: bold; margin-top: 10px; font-size: 13px; display: block;}
+
+        .lion-column { display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; padding-top: 20px; }
+        .lion-bubble { background: white; border: 3px solid #1e293b; border-radius: 16px; padding: 12px; font-weight: 800; font-size: 14px; color: #1e293b; position: relative; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.05); width: 100%;}
+        .lion-bubble::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-width: 12px 12px 0; border-style: solid; border-color: white transparent; display: block; width: 0; z-index: 1; }
+        .lion-bubble::before { content: ''; position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); border-width: 13px 13px 0; border-style: solid; border-color: #1e293b transparent; display: block; width: 0; z-index: 0; }
+        .lion-avatar { font-size: 110px; line-height: 1; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15)); transition: transform 0.3s; }
+
+        .math-container-central { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+        .welcome-card { background-color: var(--card-purple); color: white; border-radius: 16px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 20px rgba(92,83,224,0.25); }
+        .score-box-math { text-align: center; }
+        .score-val { font-size: 26px; font-family: 'Fredoka One', cursive; }
+        .score-lbl { font-size: 11px; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
+
+        .level-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+        .tab-btn { background: white; border: 2px solid transparent; border-radius: 12px; padding: 10px 2px; cursor: pointer; text-align: center; font-family: 'Quicksand', sans-serif; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
+        .tab-btn.active { background-color: var(--btn-blue); color: white; transform: translateY(-2px); }
+        .tab-title { font-size: 11px; font-weight: 700; display: block; line-height: 1.2; }
+
+        .workspace { background: white; border-radius: 24px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); text-align: center; border: 4px solid #f1f5f9; position: relative; overflow: hidden;}
+        .tagline { font-size: 11px; font-weight: 800; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; }
+        .math-question { font-size: 46px; font-family: 'Fredoka One', cursive; margin: 15px 0; color: #1e293b; letter-spacing: 1px; }
+        
+        /* SCREEN FLASH OVERLAY FOR RIGHT ANSWERS */
+        .screen-flash-status { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(34, 197, 94, 0.95); color: white; flex-direction: column; align-items: center; justify-content: center; z-index: 10; font-family: 'Fredoka One', cursive; font-size: 32px; animation: popIn 0.2s ease-out; }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .input-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; }
+        .main-input { width: 170px; padding: 12px; font-size: 26px; border: 3px solid #cbd5e1; border-radius: 14px; text-align: center; font-family: 'Fredoka One', cursive; outline: none; background: #f8fafc; color: #1e293b; }
+        .math-check-btn { background-color: var(--btn-blue); color: white; border: none; border-radius: 14px; padding: 0 25px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 0 #1d4ed8; }
+
+        .correction-box { display: none; background: #fef2f2; border: 2px dashed #f87171; border-radius: 14px; padding: 12px; margin-bottom: 15px; text-align: center; }
+        .correction-text { color: #dc2626; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+        .retry-btn { background: #dc2626; color: white; border: none; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-family: 'Quicksand', sans-serif; cursor: pointer; font-size: 13px; box-shadow: 0 3px 0 #991b1b; }
+
+        .grid-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 320px; margin: 0 auto; }
+        .num-key { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 22px; font-weight: 700; cursor: pointer; box-shadow: 0 3px 0 #e2e8f0; color: #334155; }
+        .num-key.btn-action-red { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+        .num-key.btn-action-green { background: #dcfce7; border-color: #86efac; color: #16a34a; }
+
+        .kids-keyboard { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 820px; margin: 20px auto 0 auto; }
+        .kb-row { display: flex; justify-content: center; gap: 6px; width: 100%; }
+        .kb-key { background: #f8fafc; border: 2px solid #cbd5e1; padding: 14px 0; width: 100%; max-width: 65px; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 0 #cbd5e1; color: #334155; text-align: center; }
+        .kb-key.action-btn { max-width: 110px; background: #e74c3c; color: white; border-color: #c0392b; }
+        .kb-key.next-btn { max-width: 140px; background: #3b82f6; color: white; border-color: #1d4ed8; }
+
+        /* TABLE LEVEL STYLES BASED ON IMAGE */
+        .table-selection-panel { display: none; background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px; border: 3px solid #cbd5e1; text-align: center; }
+        .table-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 12px 0; }
+        .table-select-btn { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 10px; font-weight: bold; font-size: 16px; cursor: pointer; color: #16a34a; }
+        .table-select-btn.selected-table { background: #22c55e; color: white; border-color: #16a34a; }
+        .table-reference-box { background: #fef08a; border: 2px dashed #facc15; border-radius: 12px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; text-align: left; font-size: 14px; font-weight: bold; color: #854d0e; margin-top: 10px; }
+
+        @media(max-width: 1200px) { .game-wrapper-4col { grid-template-columns: 1fr 1fr; } }
+        @media(max-width: 650px) { .game-wrapper-4col { grid-template-columns: 1fr; } .essay-split-layout { grid-template-columns: 1fr; } .level-tabs { grid-template-columns: repeat(3, 1fr); } }
+    </style>
+</head>
+<body>
+
+    <div class="global-navbar">
+        <div class="global-brand">🌟 Mega Kids Academy</div>
+        <div class="hub-selectors">
+            <button id="hubBtnEnglish" class="hub-btn active-hub" onclick="switchAcademySection('english')">🔤 English Academy</button>
+            <button id="hubBtnMath" class="hub-btn" onclick="switchAcademySection('math')">🧮 Math Quiz Game</button>
+        </div>
+    </div>
+
+    <div id="sectionEnglishAcademy" class="academy-section active-section">
+        <div class="eng-header">
+            <h1>🏫 Eevvan's English Mega Academy 🌟</h1>
+            <button class="sound-btn" id="voiceToggleBtn" onclick="toggleVoice()">🔊 Voice: ON</button>
+        </div>
+
+        <div class="mode-nav">
+            <button class="mode-btn active" id="btnModeSpelling" onclick="switchEnglishMode('spelling')">🔤 Spelling Practice</button>
+            <button class="mode-btn" id="btnModeJumble" onclick="switchEnglishMode('jumble')">🧩 Essay Sentence Game</button>
+            <button class="mode-btn" id="btnModeStory" onclick="switchEnglishMode('story')">📖 4 Essays Book</button>
+            <button class="mode-btn" id="btnModeTyping" onclick="switchEnglishMode('typing')">🎈 Sky Typing Game</button>
+        </div>
+
+        <div class="eng-container active" id="spellingContainer">
+            <div class="spelling-box">
+                <div class="pic-holder-emoji" id="pictureEmojiDisplay">🐱</div>
+                <div style="font-size: 22px; font-weight: bold; color: #475569; margin-bottom: 10px;" id="hintText">CAT</div>
+                <div class="input-area">
+                    <input type="text" class="word-input" id="wordInput" placeholder="TYPE HERE..." readonly>
+                    <button class="check-btn" onclick="checkSpelling()">✓ Check</button>
+                </div>
+                <div class="kids-keyboard">
+                    <div class="kb-row">
+                        <button class="kb-key" onclick="pressLetter('Q')">Q</button><button class="kb-key" onclick="pressLetter('W')">W</button><button class="kb-key" onclick="pressLetter('E')">E</button><button class="kb-key" onclick="pressLetter('R')">R</button><button class="kb-key" onclick="pressLetter('T')">T</button><button class="kb-key" onclick="pressLetter('Y')">Y</button><button class="kb-key" onclick="pressLetter('U')">U</button><button class="kb-key" onclick="pressLetter('I')">I</button><button class="kb-key" onclick="pressLetter('O')">O</button><button class="kb-key" onclick="pressLetter('P')">P</button>
+                    </div>
+                    <div class="kb-row">
+                        <button class="kb-key" onclick="pressLetter('A')">A</button><button class="kb-key" onclick="pressLetter('S')">S</button><button class="kb-key" onclick="pressLetter('D')">D</button><button class="kb-key" onclick="pressLetter('F')">F</button><button class="kb-key" onclick="pressLetter('G')">G</button><button class="kb-key" onclick="pressLetter('H')">H</button><button class="kb-key" onclick="pressLetter('J')">J</button><button class="kb-key" onclick="pressLetter('K')">K</button><button class="kb-key" onclick="pressLetter('L')">L</button>
+                    </div>
+                    <div class="kb-row">
+                        <button class="kb-key action-btn" onclick="pressLetter('CLR')">Clear</button><button class="kb-key" onclick="pressLetter('Z')">Z</button><button class="kb-key" onclick="pressLetter('X')">X</button><button class="kb-key" onclick="pressLetter('C')">C</button><button class="kb-key" onclick="pressLetter('V')">V</button><button class="kb-key" onclick="pressLetter('B')">B</button><button class="kb-key" onclick="pressLetter('N')">N</button><button class="kb-key" onclick="pressLetter('M')">M</button><button class="kb-key next-btn" onclick="nextSpelling()">Next ➡️</button>
+                    </div>
+                </div>
+                <div class="feedback" id="spellingFeedback" style="margin-top: 15px; font-size: 20px; font-weight: bold;"></div>
+            </div>
+        </div>
+
+        <div class="eng-container" id="jumbleContainer">
+            <div class="spelling-box">
+                <div class="essay-split-layout">
+                    
+                    <div class="essay-lines-panel">
+                        <h3 id="essayLinesPanelTitle">Essay Lines</h3>
+                        <div id="essayLinesListContainer"></div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <span style="font-size: 20px; font-weight: bold; color: #1e3a8a;" id="jumbleEssayTitle">Essay Name</span>
+                            <button class="listen-again-btn" onclick="listenToCurrentSentence()">🔊 Listen Line</button>
+                        </div>
+                        
+                        <div class="pic-holder-emoji" style="height: 120px; font-size: 70px;" id="jumbleEmojiDisplay">🎒</div>
+                        <div style="font-size: 18px; font-weight: bold; color: #db2777; margin-bottom: 15px; text-align: center;" id="jumbleHintText">Arrange words to build the active sentence!</div>
+                        
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <button class="hint-toggle-btn" id="btnToggleHindiHint" onclick="toggleHindiHintCard()">👁️ Show Hindi Translation & Hint</button>
+                            <div class="hindi-hint-box" id="hindiHintBoxCard"></div>
+                        </div>
+
+                        <div class="input-area">
+                            <input type="text" class="word-input" id="jumbleInput" placeholder="Click buttons below to build sentence..." readonly>
+                            <button class="check-btn" onclick="checkJumbleSentence()">✓ Check</button>
+                        </div>
+                        
+                        <div class="jumble-btn-container" id="jumbleWordsButtonsArea"></div>
+                        
+                        <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px;">
+                            <button class="kb-key action-btn" style="max-width: 150px;" onclick="clearJumbleInput()">Clear ❌</button>
+                            <button class="kb-key next-btn" style="max-width: 150px;" onclick="nextJumbleSentence()">Next Line ➡️</button>
+                        </div>
+                        <div class="feedback" id="jumbleFeedback" style="margin-top: 20px; font-size: 22px; font-weight: bold; text-align: center;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="eng-container" id="storyContainer">
+            <div class="book-layout">
+                <div class="story-sidebar" id="storyListContainer"></div>
+                <div class="reading-page">
+                    <div style="font-size: 28px; color: #1e3a8a; font-weight: bold; margin-bottom: 20px;" id="mainStoryTitle">Title</div>
+                    <div class="book-content" id="mainStoryBody"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="eng-container" id="typingContainer">
+            <div class="typing-box">
+                <div class="controls-row-typing">
+                    <div class="score-box">Score: <span id="typingScoreVal">0</span></div>
+                    
+                    <div class="typing-levels">
+                        <button id="typeLvl1" class="typing-level-btn active-level" onclick="setTypingLevel(1)">🐢 Level 1 (Slow)</button>
+                        <button id="typeLvl2" class="typing-level-btn" onclick="setTypingLevel(2)">😐 Level 2 (Normal)</button>
+                        <button id="typeLvl3" class="typing-level-btn" onclick="setTypingLevel(3)">⚡ Level 3 (Fast)</button>
+                    </div>
+
+                    <button class="check-btn" style="font-size:16px; padding:5px 15px;" onclick="startTypingGame()">Start Game 🚀</button>
+                </div>
+                
+                <div id="gameArea"></div>
+
+                <div class="kids-keyboard" style="margin-top:15px; background: #f8fafc; padding: 15px; border-radius: 166px; border: 2px dashed #cbd5e1;">
+                    <div class="kb-row">
+                        <button class="kb-key" onclick="pressVirtualTypingKey('Q')">Q</button><button class="kb-key" onclick="pressVirtualTypingKey('W')">W</button><button class="kb-key" onclick="pressVirtualTypingKey('E')">E</button><button class="kb-key" onclick="pressVirtualTypingKey('R')">R</button><button class="kb-key" onclick="pressVirtualTypingKey('T')">T</button><button class="kb-key" onclick="pressVirtualTypingKey('Y')">Y</button><button class="kb-key" onclick="pressVirtualTypingKey('U')">U</button><button class="kb-key" onclick="pressVirtualTypingKey('I')">I</button><button class="kb-key" onclick="pressVirtualTypingKey('O')">O</button><button class="kb-key" onclick="pressVirtualTypingKey('P')">P</button>
+                    </div>
+                    <div class="kb-row">
+                        <button class="kb-key" onclick="pressVirtualTypingKey('A')">A</button><button class="kb-key" onclick="pressVirtualTypingKey('S')">S</button><button class="kb-key" onclick="pressVirtualTypingKey('D')">D</button><button class="kb-key" onclick="pressVirtualTypingKey('F')">F</button><button class="kb-key" onclick="pressVirtualTypingKey('G')">G</button><button class="kb-key" onclick="pressVirtualTypingKey('H')">H</button><button class="kb-key" onclick="pressVirtualTypingKey('J')">J</button><button class="kb-key" onclick="pressVirtualTypingKey('K')">K</button><button class="kb-key" onclick="pressVirtualTypingKey('L')">L</button>
+                    </div>
+                    <div class="kb-row">
+                        <button class="kb-key" onclick="pressVirtualTypingKey('Z')">Z</button><button class="kb-key" onclick="pressVirtualTypingKey('X')">X</button><button class="kb-key" onclick="pressVirtualTypingKey('C')">C</button><button class="kb-key" onclick="pressVirtualTypingKey('V')">V</button><button class="kb-key" onclick="pressVirtualTypingKey('B')">B</button><button class="kb-key" onclick="pressVirtualTypingKey('N')">N</button><button class="kb-key" onclick="pressVirtualTypingKey('M')">M</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="sectionMathQuiz" class="academy-section">
+        <div class="math-navbar">
+            <div class="math-navbar-brand">🧮 Math Quiz - Plus, Minus & Multiply Mix System</div>
+            <button class="audio-btn" id="audioToggleBtn" onclick="toggleAudio()">🔊 Audio: ON</button>
+        </div>
+
+        <div class="control-panel">
+            <button id="toggleAbacusBtn" class="toggle-view-btn" onclick="toggleCardElement('leftAbacusCard', 'toggleAbacusBtn', 'Abacus Dashboard')">👁️ Hide Abacus Card</button>
+            <button id="toggleTableGridBtn" class="toggle-view-btn" style="display:none;" onclick="toggleCardElement('centralTableSelectionPanel', 'toggleTableGridBtn', 'Table Grid')">👁️ Hide Table Grid</button>
+            <button id="toggleFriendsBtn" class="toggle-view-btn" onclick="toggleCardElement('rightFriendsCard', 'toggleFriendsBtn', 'Friends Rule Box')">👁️ Hide Friends Rule</button>
+        </div>
+
+        <div class="game-wrapper-4col">
+            
+            <div id="leftAbacusCard" class="side-card">
+                <button class="card-close-btn" onclick="directHideCard('leftAbacusCard','toggleAbacusBtn','Abacus Dashboard')">×</button>
+                <div class="card-header-title">🫱 Abacus Mode</div>
+                <div class="card-content-text">
+                    ✋ <b>Finger Math!</b><br>Left aur right hathon ki fingers se jaldi-jaldi count karo!
+                </div>
+            </div>
+
+            <div class="math-container-central">
+                <div class="welcome-card">
+                    <div>
+                        <h3>Swagat hai, Eevvan! 🤍</h3>
+                        <p style="font-size:12px; opacity:0.9;">Ready for a super challenge?</p>
+                    </div>
+                    <div class="score-box-math">
+                        <div class="score-val" id="mathScoreDisplay">0</div>
+                        <div class="score-lbl">Score</div>
+                    </div>
+                </div>
+
+                <div class="level-tabs">
+                    <button id="btnLvl1" class="tab-btn active" onclick="setMathLevel(1)">
+                        <span class="tab-title">★ Level 1<br><small>1 Digit</small></span>
+                    </button>
+                    <button id="btnLvl2" class="tab-btn" onclick="setMathLevel(2)">
+                        <span class="tab-title">🔥 Level 2<br><small>2 Digit Mix</small></span>
+                    </button>
+                    <button id="btnLvl3" class="tab-btn" onclick="setMathLevel(3)">
+                        <span class="tab-title">⚡ Level 3<br><small>3 Digit Big</small></span>
+                    </button>
+                    <button id="btnLvl4" class="tab-btn" onclick="setMathLevel(4)">
+                        <span class="tab-title">✖️ Table Quiz<br><small>2 to 10</small></span>
+                    </button>
+                    <button id="btnLvl5" class="tab-btn" onclick="setMathLevel(5)">
+                        <span class="tab-title">🚀 Multiply<br><small>Quiz Master</small></span>
+                    </button>
+                </div>
+
+                <div id="centralTableSelectionPanel" class="table-selection-panel">
+                    <div style="font-weight: 800; color: #1e3a8a; font-size: 13px;">CHOOSE AND SOLVE TABLES (1 TO 10)</div>
+                    <div style="font-family: 'Fredoka One', cursive; font-size: 16px; margin: 5px 0; color: #2563eb;">CHOOSE A TABLE TO PRACTICE:</div>
+                    <div class="table-grid" id="tableGridButtonsContainer"></div>
+                    <div class="table-reference-box" id="tableReferenceContainer"></div>
+                </div>
+
+                <div class="workspace">
+                    <div class="screen-flash-status" id="mathSuccessFlash">
+                        <span>🎉 SAHI JAWAB! ⭐️</span>
+                        <span style="font-size: 50px; margin-top: 10px;">✓</span>
+                    </div>
+
+                    <div class="tagline" id="mathLvlTagline">LEVEL 1 - SINGLE DIGIT MIX</div>
+                    <div class="math-question" id="mathQuestionText">9 - 1 = ?</div>
+                    
+                    <div class="input-row">
+                        <input type="text" class="main-input" id="mathInput" placeholder="Answer...">
+                        <button class="math-check-btn" onclick="checkMathAnswer()">✓ Check</button>
+                    </div>
+
+                    <div class="correction-box" id="mathCorrectionCard">
+                        <div class="correction-text" id="mathCorrectionMessage">Wrong!</div>
+                        <button class="retry-btn" onclick="triggerRetryMode()">Retry 🔄</button>
+                    </div>
+
+                    <div class="grid-keypad">
+                        <button class="num-key" onclick="pressMathKey('7')">7</button>
+                        <button class="num-key" onclick="pressMathKey('8')">8</button>
+                        <button class="num-key" onclick="pressMathKey('9')">9</button>
+                        <button class="num-key" onclick="pressMathKey('4')">4</button>
+                        <button class="num-key" onclick="pressMathKey('5')">5</button>
+                        <button class="num-key" onclick="pressMathKey('6')">6</button>
+                        <button class="num-key" onclick="pressMathKey('1')">1</button>
+                        <button class="num-key" onclick="pressMathKey('2')">2</button>
+                        <button class="num-key" onclick="pressMathKey('3')">3</button>
+                        <button class="num-key btn-action-red" onclick="pressMathKey('CLR')">❌</button>
+                        <button class="num-key" style="background:#cbd5e1; color:#475569;" id="mathSkipBtn" onclick="nextMathQuestion()">Skip</button>
+                        <button class="num-key btn-action-green" onclick="checkMathAnswer()">✓</button>
+                    </div>
+                    <button class="num-key" style="width:100%; max-width:320px; margin-top:10px;" onclick="pressMathKey('0')">0</button>
+                </div>
+            </div>
+
+            <div id="rightFriendsCard" class="side-card">
+                <button class="card-close-btn" onclick="directHideCard('rightFriendsCard','toggleFriendsBtn','Friends Rule Box')">×</button>
+                <div class="card-header-title">🧮 Friends Rule</div>
+                <div class="card-content-text">
+                    <span class="rule-subheading">✨ Small Friends (5)</span>
+                    5 = 1 + 4, &nbsp; 2 + 3<br>
+                    5 = 3 + 2, &nbsp; 4 + 1
+                    <span class="rule-subheading">✨ Big Friends (10)</span>
+                    10 = 9 + 1, &nbsp; 8 + 2, &nbsp; 7 + 3
+                </div>
+            </div>
+
+            <div class="lion-column">
+                <div class="lion-bubble">RRROOOAARR!<br>GET READY!</div>
+                <div class="lion-avatar">🦁</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let voiceEnabled = true;
+        let audioEnabled = true;
+
+        // Essays with sentences and their respective Hindi Translations
+        const essaysData = [
+            {
+                title: "The Elephant 🐘",
+                emoji: "🐘",
+                sentences: [
+                    "The elephant is a very big land animal.",
+                    "It has four thick legs like pillars.",
+                    "It has two big ears like fans.",
+                    "The elephant has a long useful trunk.",
+                    "It has two white long tusks.",
+                    "It loves to eat green leaves and sugarcane.",
+                    "Elephants live in deep dark forests.",
+                    "It is a very smart and intelligent animal.",
+                    "Children love to watch the big elephant.",
+                    "I like the gentle elephant very much."
+                ],
+                hindi: [
+                    "हाथी जमीन पर रहने वाला एक बहुत बड़ा जानवर है।",
+                    "इसके खंभों जैसे चार मोटे पैर होते हैं।",
+                    "इसके पंखों जैसे दो बड़े कान होते हैं।",
+                    "हाथी की एक लंबी उपयोगी सूंड होती है।",
+                    "इसके दो सफेद लंबे दांत (टस्क) होते हैं।",
+                    "इसे हरी पत्तियां और गन्ना खाना बहुत पसंद है।",
+                    "हाथी गहरे घने जंगलों में रहते हैं।",
+                    "यह एक बहुत ही चालाक और बुद्धिमान जानवर है।",
+                    "बच्चों को बड़े हाथी को देखना बहुत पसंद होता है।",
+                    "मुझे सौम्य हाथी बहुत पसंद है।"
+                ]
+            },
+            {
+                title: "My Cow 🐄",
+                emoji: "🐄",
+                sentences: [
+                    "The cow is a domestic animal.",
+                    "It has four legs and two horns.",
+                    "Cow gives us healthy milk every day.",
+                    "It loves to eat green fresh grass.",
+                    "We call her Gau Mata with love.",
+                    "It has a long tail to play.",
+                    "Cows live in a clean farm shed.",
+                    "Cow milk makes us very strong kids.",
+                    "It is a very calm gentle animal.",
+                    "I love my sweet cow so much."
+                ],
+                hindi: [
+                    "गाय एक पालतू जानवर है।",
+                    "इसके चार पैर और दो सींग होते हैं।",
+                    "गाय हमें हर रोज सेहतमंद दूध देती है।",
+                    "इसे हरी ताजी घास खाना बहुत पसंद है।",
+                    "हम उन्हें प्यार से गौ माता कहते हैं।",
+                    "खेलने/हिलाने के लिए इसकी एक लंबी पूंछ होती है।",
+                    "गायें साफ-सुथरे शेड (गोशालों) में रहती हैं।",
+                    "गाय का दूध हमें बहुत मजबूत बच्चा बनाता है।",
+                    "यह बहुत ही शांत और सीधा जानवर है।",
+                    "मैं अपनी प्यारी गाय से बहुत प्यार करता हूँ।"
+                ]
+            },
+            {
+                title: "My Best Friend 🧑‍🤝‍🧑",
+                emoji: "🧑‍🤝‍🧑",
+                sentences: [
+                    "Eevvan is my wonderful best friend today.",
+                    "He is a very smart kind boy.",
+                    "We study and learn together at school.",
+                    "We share our toys and beautiful games.",
+                    "He always helps everyone in the class.",
+                    "We run and play in the park.",
+                    "He has a very happy smiling face.",
+                    "We enjoy eating yummy lunch together every day.",
+                    "He is the best classmate for me.",
+                    "I love my best friend very much."
+                ],
+                hindi: [
+                    "इवान आज मेरा बहुत ही अद्भुत सबसे अच्छा दोस्त है।",
+                    "वह एक बहुत ही होशियार और दयालु लड़का है।",
+                    "हम स्कूल में एक साथ पढ़ते और सीखते हैं।",
+                    "हम अपने खिलौने और सुंदर खेल आपस में साझा करते हैं।",
+                    "वह हमेशा क्लास में सबकी मदद करता है।",
+                    "हम पार्क में दौड़ते और खेलते हैं।",
+                    "उसका चेहरा हमेशा हंसता-मुस्कुराता रहता है।",
+                    "हम हर दिन एक साथ स्वादिष्ट लंच खाने का आनंद लेते हैं।",
+                    "वह मेरे लिए सबसे अच्छा सहपाठी है।",
+                    "मैं अपने सबसे अच्छे दोस्त से बहुत प्यार करता हूँ।"
+                ]
+            },
+            {
+                title: "My Sun ☀️",
+                emoji: "☀️",
+                sentences: [
+                    "The sun shines bright in the sky.",
+                    "It looks like a big yellow ball.",
+                    "It rises early in the lovely morning.",
+                    "The sun gives us bright golden light.",
+                    "It gives warm heat to our world.",
+                    "It sets beautifully in the quiet evening.",
+                    "Sun helps green plants to grow well.",
+                    "It makes the dark night go away.",
+                    "All animals love the warm bright sun.",
+                    "The sun is very important for life."
+                ],
+                hindi: [
+                    "सूरज आसमान में तेजी से चमकता है।",
+                    "यह एक बड़ी पीली गेंद जैसा दिखता है।",
+                    "यह प्यारी सुबह में जल्दी उगता है।",
+                    "सूरज हमें चमकदार सुनहरी रोशनी देता है।",
+                    "यह हमारी dunia को गर्म गर्मी/ताप देता है।",
+                    "यह शांत शाम को खूबसूरती से अस्त होता है।",
+                    "सूरज हरे पौधों को अच्छे से बढ़ने में मदद करता है।",
+                    "यह अंधेरी रात को दूर भगा देता है।",
+                    "सभी जानवर गर्म चमकीले सूरज को पसंद करते हैं।",
+                    "जीवन के लिए सूरज बहुत महत्वपूर्ण है।"
+                ]
+            }
+        ];
+
+        let currentEssayIdx = 0;
+        let currentSentenceIdx = 0;
+        let selectedWords = [];
+        let isHintVisible = false;
+
+        const spellingList = [
+            { word: "CAT", emoji: "🐱" },
+            { word: "DOG", emoji: "🐶" },
+            { word: "APPLE", emoji: "🍎" },
+            { word: "BALL", emoji: "⚽" }
+        ];
+        let spellingIdx = 0;
+
+        function switchAcademySection(section) {
+            document.querySelectorAll('.academy-section').forEach(s => s.classList.remove('active-section'));
+            document.querySelectorAll('.hub-btn').forEach(b => b.classList.remove('active-hub'));
+            if(section === 'english') {
+                document.getElementById('sectionEnglishAcademy').classList.add('active-section');
+                document.getElementById('hubBtnEnglish').classList.add('active-hub');
+            } else {
+                document.getElementById('sectionMathQuiz').classList.add('active-section');
+                document.getElementById('hubBtnMath').classList.add('active-hub');
+                generateMathQuestion();
+            }
+        }
+
+        function toggleVoice() {
+            voiceEnabled = !voiceEnabled;
+            document.getElementById('voiceToggleBtn').innerText = voiceEnabled ? "🔊 Voice: ON" : "🔇 Voice: OFF";
+        }
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audioToggleBtn').innerText = audioEnabled ? "🔊 Audio: ON" : "🔇 Audio: OFF";
+        }
+
+        function switchEnglishMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.eng-container').forEach(c => c.classList.remove('active'));
+            
+            if(mode === 'spelling') {
+                document.getElementById('btnModeSpelling').classList.add('active');
+                document.getElementById('spellingContainer').classList.add('active');
+            } else if(mode === 'jumble') {
+                document.getElementById('btnModeJumble').classList.add('active');
+                document.getElementById('jumbleContainer').classList.add('active');
+                initJumbleGame();
+            } else if(mode === 'story') {
+                document.getElementById('btnModeStory').classList.add('active');
+                document.getElementById('storyContainer').classList.add('active');
+                initStoryBook();
+            } else if(mode === 'typing') {
+                document.getElementById('btnModeTyping').classList.add('active');
+                document.getElementById('typingContainer').classList.add('active');
+            }
+        }
+
+        // --- SPELLING PRACTICE SYSTEM ---
+        function loadSpelling() {
+            let item = spellingList[spellingIdx];
+            document.getElementById('pictureEmojiDisplay').innerText = item.emoji;
+            document.getElementById('hintText').innerText = item.word;
+            document.getElementById('wordInput').value = "";
+            document.getElementById('wordInput').className = "word-input";
+            document.getElementById('spellingFeedback').innerText = "";
+        }
+        function pressLetter(char) {
+            let inp = document.getElementById('wordInput');
+            if(char === 'CLR') inp.value = "";
+            else inp.value += char;
+        }
+        function checkSpelling() {
+            let inp = document.getElementById('wordInput');
+            let target = spellingList[spellingIdx].word;
+            if(inp.value.toUpperCase() === target) {
+                inp.classList.add('correct');
+                document.getElementById('spellingFeedback').innerText = "🎉 Right Job! ⭐️";
+                if(voiceEnabled) speakText("Excellent!");
+            } else {
+                inp.classList.add('wrong');
+                document.getElementById('spellingFeedback').innerText = "❌ Try Again!";
+            }
+        }
+        function nextSpelling() {
+            spellingIdx = (spellingIdx + 1) % spellingList.length;
+            loadSpelling();
+        }
+
+        // --- UPDATED ESSAY SENTENCE GAME WITH ANTI-COPY & HINDI HINT ---
+        function initJumbleGame() {
+            currentEssayIdx = 0;
+            currentSentenceIdx = 0;
+            loadJumbleSentence();
+        }
+
+        function toggleHindiHintCard() {
+            let card = document.getElementById('hindiHintBoxCard');
+            let btn = document.getElementById('btnToggleHindiHint');
+            isHintVisible = !isHintVisible;
+            if(isHintVisible) {
+                card.style.display = "block";
+                btn.innerText = "🙈 Hide Hindi Translation";
+            } else {
+                card.style.display = "none";
+                btn.innerText = "👁️ Show Hindi Translation & Hint";
+            }
+        }
+
+        function loadJumbleSentence() {
+            selectedWords = [];
+            isHintVisible = false;
+            document.getElementById('jumbleInput').value = "";
+            document.getElementById('jumbleFeedback').innerText = "";
+            
+            let card = document.getElementById('hindiHintBoxCard');
+            let btn = document.getElementById('btnToggleHindiHint');
+            card.style.display = "none";
+            btn.innerText = "👁️ Show Hindi Translation & Hint";
+            
+            let essay = essaysData[currentEssayIdx];
+            let rawSentence = essay.sentences[currentSentenceIdx];
+            let rawHindi = essay.hindi ? essay.hindi[currentSentenceIdx] : "Hindi translation loaded!";
+            
+            card.innerHTML = `<b>💡 हिन्दी अनुवाद:</b> ${rawHindi}`;
+
+            document.getElementById('jumbleEmojiDisplay').innerText = essay.emoji;
+            document.getElementById('jumbleEssayTitle').innerText = essay.title;
+            document.getElementById('essayLinesPanelTitle').innerText = `📋 Full Lines (${essay.title})`;
+
+            let linesContainer = document.getElementById('essayLinesListContainer');
+            linesContainer.innerHTML = "";
+            essay.sentences.forEach((sentence, idx) => {
+                let div = document.createElement('div');
+                div.className = "essay-line-item" + (idx === currentSentenceIdx ? " current-line" : "");
+                
+                // Anti-copy trick: active line text is masked unless user clicks hint
+                if (idx === currentSentenceIdx) {
+                    div.innerHTML = `${idx + 1}. <span class="hidden-text-mask">WORDS HIDDEN FOR GAME</span>`;
+                } else {
+                    div.innerText = `${idx + 1}. ${sentence}`;
+                }
+                linesContainer.appendChild(div);
+            });
+
+            listenToCurrentSentence();
+
+            let wordsArray = rawSentence.split(" ");
+            let shuffledWords = [...wordsArray].sort(() => Math.random() - 0.5);
+
+            let btnArea = document.getElementById('jumbleWordsButtonsArea');
+            btnArea.innerHTML = "";
+            shuffledWords.forEach(word => {
+                let btn = document.createElement('button');
+                btn.className = "jumble-word-btn";
+                btn.innerText = word;
+                btn.onclick = function() {
+                    selectedWords.push(word);
+                    document.getElementById('jumbleInput').value = selectedWords.join(" ");
+                    btn.style.opacity = "0.4";
+                    btn.style.pointerEvents = "none";
+                };
+                btnArea.appendChild(btn);
+            });
+        }
+
+        function listenToCurrentSentence() {
+            let targetStr = essaysData[currentEssayIdx].sentences[currentSentenceIdx];
+            speakText(targetStr);
+        }
+
+        function checkJumbleSentence() {
+            let userStr = document.getElementById('jumbleInput').value;
+            let targetStr = essaysData[currentEssayIdx].sentences[currentSentenceIdx];
+            
+            if(userStr === targetStr) {
+                document.getElementById('jumbleFeedback').innerHTML = "<span style='color:#16a34a;'>🎉 Beautiful! Perfectly Arranged! ⭐️</span>";
+                if(voiceEnabled) speakText("Awesome job!");
+            } else {
+                document.getElementById('jumbleFeedback').innerHTML = "<span style='color:#ef4444;'>❌ Not quite right. Press Clear and try!</span>";
+            }
+        }
+
+        function clearJumbleInput() {
+            selectedWords = [];
+            document.getElementById('jumbleInput').value = "";
+            document.getElementById('jumbleFeedback').innerText = "";
+            let buttons = document.getElementById('jumbleWordsButtonsArea').getElementsByClassName('jumble-word-btn');
+            for(let btn of buttons) {
+                btn.style.opacity = "1";
+                btn.style.pointerEvents = "auto";
+            }
+        }
+
+        function nextJumbleSentence() {
+            let essay = essaysData[currentEssayIdx];
+            currentSentenceIdx++;
+            if(currentSentenceIdx >= essay.sentences.length) {
+                currentSentenceIdx = 0;
+                currentEssayIdx = (currentEssayIdx + 1) % essaysData.length;
+            }
+            loadJumbleSentence();
+        }
+
+        // --- 4 ESSAYS BOOK SYSTEM ---
+        function initStoryBook() {
+            let listArea = document.getElementById('storyListContainer');
+            listArea.innerHTML = "";
+            essaysData.forEach((essay, idx) => {
+                let btn = document.createElement('button');
+                btn.className = "story-tab-btn" + (idx === 0 ? " active-story" : "");
+                btn.id = "storyTab" + idx;
+                btn.innerText = essay.emoji + " " + essay.title;
+                btn.onclick = function() {
+                    document.querySelectorAll('.story-tab-btn').forEach(b => b.classList.remove('active-story'));
+                    btn.classList.add('active-story');
+                    readEssay(idx);
+                };
+                listArea.appendChild(btn);
+            });
+            readEssay(0);
+        }
+
+        function readEssay(idx) {
+            let essay = essaysData[idx];
+            document.getElementById('mainStoryTitle').innerText = essay.emoji + " " + essay.title;
+            
+            let combinedContent = "";
+            for(let i=0; i<essay.sentences.length; i++) {
+                combinedContent += `${i+1}. ${essay.sentences[i]}\n<small style="color:#65a30d;">👉 ${essay.hindi[i]}</small>\n\n`;
+            }
+            document.getElementById('mainStoryBody').innerHTML = combinedContent;
+            if(voiceEnabled) speakText("Reading " + essay.title);
+        }
+
+        // --- SKY TYPING WITH CONTROLLED LEVELS ---
+        let typingScore = 0;
+        let typingGameTimer = null;
+        let activeLettersMap = {}; 
+        let currentTypingLevel = 1;
+
+        const levelConfig = {
+            1: { spawnInterval: 2800, minSpeed: 0.8, maxSpeed: 1.5 },
+            2: { spawnInterval: 1800, minSpeed: 1.8, maxSpeed: 2.8 },
+            3: { spawnInterval: 900,  minSpeed: 3.5, maxSpeed: 5.5 }
+        };
+
+        function setTypingLevel(lvl) {
+            currentTypingLevel = lvl;
+            document.querySelectorAll('.typing-level-btn').forEach(btn => btn.classList.remove('active-level'));
+            document.getElementById('typeLvl' + lvl).classList.add('active-level');
+            if(typingGameTimer) startTypingGame();
+        }
+
+        function startTypingGame() {
+            let area = document.getElementById('gameArea');
+            area.innerHTML = ""; 
+            typingScore = 0;
+            activeLettersMap = {};
+            document.getElementById('typingScoreVal').innerText = typingScore;
+            
+            if(typingGameTimer) clearInterval(typingGameTimer);
+            window.removeEventListener('keydown', handleGlobalTypingKey);
+            window.addEventListener('keydown', handleGlobalTypingKey);
+            
+            spawnFallingItem();
+            typingGameTimer = setInterval(spawnFallingItem, levelConfig[currentTypingLevel].spawnInterval); 
+        }
+
+        function spawnFallingItem() {
+            let area = document.getElementById('gameArea');
+            if(!area || !document.getElementById('typingContainer').classList.contains('active')) {
+                clearInterval(typingGameTimer);
+                return;
+            }
+
+            let balloon = document.createElement('div');
+            balloon.className = "falling-balloon";
+            let alphabet = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+            balloon.innerText = alphabet;
+            
+            let randomLeft = Math.floor(Math.random() * (area.clientWidth - 70));
+            if(randomLeft < 10) randomLeft = 10;
+            balloon.style.left = randomLeft + "px";
+            balloon.style.top = "0px";
+            area.appendChild(balloon);
+
+            let currentTop = 0;
+            let config = levelConfig[currentTypingLevel];
+            let fallSpeed = config.minSpeed + Math.random() * (config.maxSpeed - config.minSpeed);
+
+            let internalTimer = setInterval(() => {
+                currentTop += fallSpeed;
+                balloon.style.top = currentTop + "px";
+
+                if(currentTop > (area.clientHeight - 50)) {
+                    clearInterval(internalTimer);
+                    if(balloon.parentNode) balloon.parentNode.removeChild(balloon);
+                    if(activeLettersMap[alphabet] && activeLettersMap[alphabet].element === balloon) {
+                        delete activeLettersMap[alphabet];
+                    }
+                }
+            }, 30);
+
+            activeLettersMap[alphabet] = { element: balloon, timer: internalTimer };
+        }
+
+        function handleGlobalTypingKey(e) { processTypingInput(e.key.toUpperCase()); }
+        function pressVirtualTypingKey(char) { processTypingInput(char); }
+
+        function processTypingInput(pressedChar) {
+            if(activeLettersMap[pressedChar]) {
+                let targetObj = activeLettersMap[pressedChar];
+                targetObj.element.style.background = "#22c55e";
+                targetObj.element.style.color = "white";
+                
+                typingScore += 10;
+                document.getElementById('typingScoreVal').innerText = typingScore;
+                if(voiceEnabled) speakText("Great");
+
+                clearInterval(targetObj.timer);
+                setTimeout(() => {
+                    if(targetObj.element.parentNode) targetObj.element.parentNode.removeChild(targetObj.element);
+                }, 100);
+                
+                delete activeLettersMap[pressedChar];
+            }
+        }
+
+        // --- MATHEMATICS SYSTEM ---
+        let mathLevel = 1;
+        let mathScore = 0;
+        let currentMathAns = 0;
+        let isBlockerActive = false;
+        window.tableNumber = 4; // Default starting table
+        window.tableStep = 1;
+
+        // FIXED: Replaced pressLetter('R') with correct function inside the typing keyboard markup.
+
+        function setMathLevel(lvl) {
+            mathLevel = lvl;
+            isBlockerActive = false;
+            document.getElementById('mathCorrectionCard').style.display = "none";
+            document.getElementById('mathSkipBtn').style.opacity = "1";
+            document.getElementById('mathSkipBtn').style.pointerEvents = "auto";
+            
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btnLvl' + lvl).classList.add('active');
+            
+            let tag = document.getElementById('mathLvlTagline');
+            let tablePanel = document.getElementById('centralTableSelectionPanel');
+            let toggleTableGridBtn = document.getElementById('toggleTableGridBtn');
+
+            if(lvl === 4) {
+                tablePanel.style.display = "block";
+                toggleTableGridBtn.style.display = "inline-block";
+                document.getElementById('toggleTableGridBtn').innerText = "👁️ Hide Table Grid";
+                renderTableGridButtons();
+                updateTableReferenceView();
+            } else {
+                tablePanel.style.display = "none";
+                toggleTableGridBtn.style.display = "none";
+            }
+
+            if(lvl === 1) tag.innerText = "LEVEL 1 - SINGLE DIGIT MIX (+ / -)";
+            if(lvl === 2) tag.innerText = "LEVEL 2 - 2 DIGIT MIX SYSTEM";
+            if(lvl === 3) tag.innerText = "LEVEL 3 - 3 DIGIT BIG NUMBERS MASTER";
+            if(lvl === 4) tag.innerText = "TABLE QUIZ - TABLES FROM 1 TO 10 (✖️)";
+            if(lvl === 5) tag.innerText = "MULTIPLY QUIZ - MULTIPLICATION CHALLENGE (✖️)";
+            
+            generateMathQuestion();
+        }
+
+        function renderTableGridButtons() {
+            let container = document.getElementById('tableGridButtonsContainer');
+            container.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                let btn = document.createElement('button');
+                btn.className = "table-select-btn" + (window.tableNumber === i ? " selected-table" : "");
+                btn.innerText = `× ${i}`;
+                btn.onclick = function() {
+                    window.tableNumber = i;
+                    window.tableStep = 1; 
+                    renderTableGridButtons();
+                    updateTableReferenceView();
+                    generateMathQuestion();
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        function updateTableReferenceView() {
+            let refContainer = document.getElementById('tableReferenceContainer');
+            refContainer.innerHTML = "";
+            let num = window.tableNumber;
+            for(let i=1; i<=10; i++) {
+                let div = document.createElement('div');
+                div.style.padding = "4px 8px";
+                if(i === window.tableStep) {
+                    div.style.background = "#fef08a";
+                    div.style.border = "1px solid #eab308";
+                    div.style.borderRadius = "6px";
+                }
+                div.innerText = `${num} × ${i} = ${num * i}`;
+                refContainer.appendChild(div);
+            }
+        }
+
+        function generateMathQuestion() {
+            if(isBlockerActive) return;
+            let num1 = 0, num2 = 0;
+            let isPlus = Math.random() > 0.5;
+            
+            if(mathLevel === 1) {
+                num1 = Math.floor(Math.random() * 9) + 1;
+                num2 = Math.floor(Math.random() * num1);
+                if(isPlus) {
+                    currentMathAns = num1 + num2;
+                    document.getElementById('mathQuestionText').innerText = num1 + " + " + num2 + " = ?";
+                } else {
+                    currentMathAns = num1 - num2;
+                    document.getElementById('mathQuestionText').innerText = num1 + " - " + num2 + " = ?";
+                }
+            } else if(mathLevel === 2) {
+                num1 = Math.floor(Math.random() * 90) + 10; 
+                num2 = Math.floor(Math.random() * 90) + 10; 
+                if(!isPlus && num1 < num2) { let t = num1; num1 = num2; num2 = t; }
+                if(isPlus) {
+                    currentMathAns = num1 + num2;
+                    document.getElementById('mathQuestionText').innerText = num1 + " + " + num2 + " = ?";
+                } else {
+                    currentMathAns = num1 - num2;
+                    document.getElementById('mathQuestionText').innerText = num1 - " - " + num2 + " = ?";
+                }
+            } else if(mathLevel === 3) {
+                num1 = Math.floor(Math.random() * 500) + 100;
+                num2 = Math.floor(Math.random() * 90) + 10;
+                if(!isPlus && num1 < num2) num1 += num2;
+                if(isPlus) {
+                    currentMathAns = num1 + num2;
+                    document.getElementById('mathQuestionText').innerText = num1 + " + " + num2 + " = ?";
+                } else {
+                    currentMathAns = num1 - num2;
+                    document.getElementById('mathQuestionText').innerText = num1 + " - " + num2 + " = ?";
+                }
+            } else if(mathLevel === 4) {
+                num1 = window.tableNumber;
+                num2 = window.tableStep;
+                currentMathAns = num1 * num2;
+                document.getElementById('mathQuestionText').innerText = num1 + " × " + num2 + " = ?";
+                updateTableReferenceView();
+            } else if(mathLevel === 5) {
+                num1 = Math.floor(Math.random() * 11) + 2; 
+                num2 = Math.floor(Math.random() * 11) + 2; 
+                currentMathAns = num1 * num2;
+                document.getElementById('mathQuestionText').innerText = num1 + " × " + num2 + " = ?";
+            }
+            
+            document.getElementById('mathInput').value = "";
+            document.getElementById('mathCorrectionCard').style.display = "none";
+            document.getElementById('mathSkipBtn').style.opacity = "1";
+            document.getElementById('mathSkipBtn').style.pointerEvents = "auto";
+            
+            // Focus on input box for smooth typing
+            document.getElementById('mathInput').focus();
+        }
+
+        function pressMathKey(val) {
+            let inp = document.getElementById('mathInput');
+            if(val === 'CLR') inp.value = "";
+            else if(inp.value.length < 5) inp.value += val;
+            inp.focus();
+        }
+
+        function checkMathAnswer() {
+            let rawInp = document.getElementById('mathInput').value;
+            if(rawInp === "") return;
+            
+            let userAns = parseInt(rawInp);
+            let correctionCard = document.getElementById('mathCorrectionCard');
+            let skipBtn = document.getElementById('mathSkipBtn');
+
+            if(userAns === currentMathAns) {
+                mathScore += 15;
+                document.getElementById('mathScoreDisplay').innerText = mathScore;
+                isBlockerActive = false;
+                correctionCard.style.display = "none";
+                
+                let flash = document.getElementById('mathSuccessFlash');
+                flash.style.display = "flex";
+                if(audioEnabled) speakText("Excellent!");
+
+                setTimeout(() => {
+                    flash.style.display = "none";
+
+                    if(mathLevel === 4){
+                        window.tableStep++;
+                        if(window.tableStep > 10){
+                            window.tableStep = 1;
+                            window.tableNumber++;
+                            if(window.tableNumber > 10){
+                                window.tableNumber = 1; 
+                            }
+                            renderTableGridButtons();
+                        }
+                    }
+
+                    generateMathQuestion();
+                }, 1000);
+
+            } else {
+                isBlockerActive = true;
+                document.getElementById('mathCorrectionMessage').innerHTML = "❌ <b>Wrong Answer!</b> Right was <b>" + currentMathAns + "</b>. Fix it!";
+                correctionCard.style.display = "block";
+                skipBtn.style.opacity = "0.3";
+                skipBtn.style.pointerEvents = "none";
+                if(audioEnabled) speakText("Try again");
+            }
+        }
+
+        function triggerRetryMode() {
+            document.getElementById('mathInput').value = "";
+            document.getElementById('mathCorrectionCard').style.display = "none";
+            document.getElementById('mathInput').focus();
+        }
+
+        function nextMathQuestion() { if(!isBlockerActive) generateMathQuestion(); }
+
+        // Core visual toggles
+        function toggleCardElement(id, btnId, name) {
+            let c = document.getElementById(id);
+            if(c.style.display === "none") {
+                c.style.display = "block";
+                document.getElementById(btnId).innerText = "👁️ Hide " + name;
+            } else {
+                c.style.display = "none";
+                document.getElementById(btnId).innerText = "👁️ Show " + name;
+            }
+        }
+
+        function directHideCard(id, btnId, name) {
+            document.getElementById(id).style.display = "none";
+            document.getElementById(btnId).innerText = "👁️ Show " + name;
+        }
+
+        function speakText(txt) {
+            if(voiceEnabled && 'speechSynthesis' in window) {
+                let u = new SpeechSynthesisUtterance(txt);
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        // Global Math Keyboard Listener 
+        window.addEventListener('keydown', function(e) {
+            // Check if Math section is currently active
+            if(document.getElementById('sectionMathQuiz').classList.contains('active-section')) {
+                if(e.key === 'Enter') {
+                    checkMathAnswer();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    if(isBlockerActive) {
+                        triggerRetryMode();
+                    }
+                }
+            }
+        });
+
+        window.onload = function() { loadSpelling(); };
+    </script>
+</body>
+</html>
